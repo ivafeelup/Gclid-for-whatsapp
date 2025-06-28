@@ -1,0 +1,24 @@
+<script>
+(function() {
+  var gclid = localStorage.getItem('gclid');
+  if (!gclid) return;
+
+  // Welcome message (can be customized)
+  var greeting = 'Hi! I'm coming from an ad. My GCLID is: ' + gclid;
+
+  // Find all links to wa.me
+  var links = document.querySelectorAll('a[href*="wa.me/"]');
+
+  for (var i = 0; i < links.length; i++) {
+    var link = links[i];
+    var href = link.getAttribute('href');
+
+    // Skip if the text parameter is already present
+    if (href.indexOf('?text=') !== -1) continue;
+
+    // Do not duplicate text= on repeated loads
+    var newHref = href + '?text=' + encodeURIComponent(greeting);
+    link.setAttribute('href', newHref);
+  }
+})();
+</script>
