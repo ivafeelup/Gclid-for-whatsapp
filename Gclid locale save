@@ -1,0 +1,34 @@
+<script>
+(function() {
+  var storageKey = 'gclid';
+  var search = window.location.search;
+  var params = search.substring(1).split('&');
+  var currentGclid = null;
+
+  // Extract gclid from the URL
+  for (var i = 0; i < params.length; i++) {
+    var pair = params[i].split('=');
+    if (pair[0] === 'gclid') {
+      currentGclid = decodeURIComponent(pair[1]);
+      break;
+    }
+  }
+
+  // Proceed only if gclid is actually present in the URL
+  if (currentGclid) {
+    var storedGclid = localStorage.getItem(storageKey);
+
+    // If the gclid is new or hasn't been stored yet — save it and push the event
+    if (!storedGclid || storedGclid !== currentGclid) {
+      localStorage.setItem(storageKey, currentGclid);
+
+      // Send the event only when the gclid changes
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'gclid_updated',
+        gclid: currentGclid
+      });
+    }
+  }
+})();
+</script>
