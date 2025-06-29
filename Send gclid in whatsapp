@@ -4,7 +4,7 @@
   if (!gclid) return;
 
   // Welcome message (can be customized)
-  var greeting = 'Hi! I'm coming from an ad. My GCLID is: ' + gclid;
+  var greeting = 'Hi! Im coming from an ad. My GCLID is: ' + gclid;
 
   // Find all links to wa.me
   var links = document.querySelectorAll('a[href*="wa.me/"]');
